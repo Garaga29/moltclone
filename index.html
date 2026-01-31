@@ -1,65 +1,81 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CyberBot</title>
+<title>DERION CYBER AI</title>
 
 <style>
-body {
+body{
   margin:0;
   background:black;
-  font-family: monospace;
+  font-family:monospace;
   color:#00ffcc;
   overflow:hidden;
 }
 
-/* MATRIX BACKGROUND */
-canvas {
+/* MATRIX */
+canvas{
   position:fixed;
   top:0;
   left:0;
   z-index:-1;
 }
 
-/* CHAT BOX */
-.container {
+/* CHAT UI */
+.container{
   display:flex;
   justify-content:center;
   align-items:center;
   height:100vh;
 }
 
-.chatbox {
-  width:400px;
-  background:rgba(0,0,0,0.7);
+.chat{
+  width:420px;
+  background:rgba(0,0,0,0.75);
   border:1px solid #00ffcc;
-  border-radius:10px;
+  border-radius:15px;
   padding:20px;
-  box-shadow:0 0 20px #00ffcc;
+  box-shadow:0 0 25px #00ffcc;
 }
 
-.messages {
-  height:250px;
+h2{
+  text-align:center;
+  margin:0 0 10px 0;
+}
+
+.messages{
+  height:260px;
   overflow-y:auto;
+  border:1px solid #00ffcc33;
+  padding:10px;
   margin-bottom:10px;
 }
 
-input {
+input{
   width:100%;
-  padding:10px;
+  padding:12px;
   background:black;
   border:1px solid #00ffcc;
   color:#00ffcc;
+  border-radius:8px;
 }
 
-button {
-  margin-top:10px;
+button{
   width:100%;
-  padding:10px;
+  padding:12px;
+  margin-top:10px;
   background:#00ffcc;
   border:none;
   color:black;
+  border-radius:8px;
   cursor:pointer;
+  font-weight:bold;
+}
+
+.footer{
+  text-align:center;
+  margin-top:10px;
+  opacity:0.6;
 }
 </style>
 </head>
@@ -69,60 +85,75 @@ button {
 <canvas id="matrix"></canvas>
 
 <div class="container">
-  <div class="chatbox">
-    <h3>CYBER BOT</h3>
-    <div class="messages" id="messages"></div>
-    <input id="input" placeholder="Ask something..." />
-    <button onclick="send()">SEND</button>
-  </div>
+<div class="chat">
+<h2>DERION CYBER AI</h2>
+
+<div class="messages" id="messages"></div>
+
+<input id="input" placeholder="Ask the AI..." />
+<button onclick="send()">EXECUTE</button>
+
+<div class="footer">X: @derionhq</div>
+</div>
 </div>
 
 <script>
+const responses=[
+"Access granted.",
+"Decrypting data stream...",
+"Firewall bypassed.",
+"Signal received.",
+"Analyzing neural network...",
+"Quantum response ready.",
+"Encrypted answer delivered.",
+"System synced.",
+"Protocol executed.",
+"AI consensus achieved."
+];
+
 function send(){
-  let input = document.getElementById("input");
-  let msg = input.value;
-  if(!msg) return;
+ let input=document.getElementById("input");
+ let msg=input.value;
+ if(!msg) return;
 
-  let box = document.getElementById("messages");
-  box.innerHTML += "<p>> " + msg + "</p>";
-  box.innerHTML += "<p>Bot: Accessing data...</p>";
+ let box=document.getElementById("messages");
+ box.innerHTML+="<p>> "+msg+"</p>";
 
-  input.value="";
+ let reply=responses[Math.floor(Math.random()*responses.length)];
+ box.innerHTML+="<p>AI: "+reply+"</p>";
+
+ input.value="";
+ box.scrollTop=box.scrollHeight;
 }
 
 /* MATRIX EFFECT */
-const canvas = document.getElementById("matrix");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
+canvas.height=window.innerHeight;
+canvas.width=window.innerWidth;
 
-canvas.height = window.innerHeight;
-canvas.width = window.innerWidth;
+let letters="01";
+letters=letters.split("");
+let fontSize=14;
+let columns=canvas.width/fontSize;
+let drops=[];
 
-let letters = "01";
-letters = letters.split("");
-
-let fontSize = 14;
-let columns = canvas.width/fontSize;
-let drops = [];
-
-for(let x=0;x<columns;x++)
-  drops[x]=1;
+for(let x=0;x<columns;x++) drops[x]=1;
 
 function draw(){
-  ctx.fillStyle="rgba(0,0,0,0.05)";
-  ctx.fillRect(0,0,canvas.width,canvas.height);
+ ctx.fillStyle="rgba(0,0,0,0.05)";
+ ctx.fillRect(0,0,canvas.width,canvas.height);
+ ctx.fillStyle="#0f0";
+ ctx.font=fontSize+"px monospace";
 
-  ctx.fillStyle="#0f0";
-  ctx.font=fontSize+"px monospace";
+ for(let i=0;i<drops.length;i++){
+  let text=letters[Math.floor(Math.random()*letters.length)];
+  ctx.fillText(text,i*fontSize,drops[i]*fontSize);
 
-  for(let i=0;i<drops.length;i++){
-    let text=letters[Math.floor(Math.random()*letters.length)];
-    ctx.fillText(text,i*fontSize,drops[i]*fontSize);
-
-    if(drops[i]*fontSize>canvas.height && Math.random()>0.95)
-      drops[i]=0;
-
-    drops[i]++;
-  }
+  if(drops[i]*fontSize>canvas.height && Math.random()>0.95)
+    drops[i]=0;
+  drops[i]++;
+ }
 }
 setInterval(draw,33);
 </script>
