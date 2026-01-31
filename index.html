@@ -2,104 +2,154 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>AI Dimension</title>
+<title>AI PORTAL X</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body{
   margin:0;
-  font-family: 'Segoe UI', sans-serif;
-  background: radial-gradient(circle at top,#0f172a,#020617);
+  font-family:Segoe UI, sans-serif;
   color:white;
+  overflow-x:hidden;
+  background:black;
+}
+
+/* STAR BACKGROUND */
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:-1;
 }
 
 /* HERO */
 .hero{
   text-align:center;
-  padding:80px 20px;
+  padding:120px 20px 60px;
 }
 
 .hero h1{
-  font-size:48px;
-  background:linear-gradient(90deg,#22d3ee,#a78bfa);
+  font-size:56px;
+  background:linear-gradient(90deg,#22d3ee,#a78bfa,#f472b6);
   -webkit-background-clip:text;
   color:transparent;
 }
 
 .hero p{
   opacity:0.7;
-  max-width:500px;
-  margin:auto;
-}
-
-/* GLASS CARD */
-.glass{
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:16px;
-  padding:20px;
-  transition:0.3s;
-}
-
-.glass:hover{
-  transform:translateY(-5px);
-  box-shadow:0 0 20px #22d3ee44;
 }
 
 /* GRID */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
-  padding:40px;
+  gap:25px;
   max-width:1100px;
   margin:auto;
+  padding:40px;
+}
+
+/* GLASS CARD */
+.card{
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(15px);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:18px;
+  padding:25px;
+  transition:0.4s;
+}
+
+.card:hover{
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:0 0 25px #22d3ee55;
 }
 
 /* FOOTER */
 .footer{
   text-align:center;
-  opacity:0.6;
-  padding:40px 0;
+  padding:50px 0;
+  opacity:0.5;
 }
 </style>
 </head>
 
 <body>
 
+<canvas id="stars"></canvas>
+
 <section class="hero">
-<h1>AI DIMENSION</h1>
-<p>Enter the next generation of intelligence. Explore neural systems, autonomous agents, and digital evolution.</p>
+<h1 id="typing"></h1>
+<p>Entering neural dimension...</p>
 </section>
 
 <section class="grid">
 
-<div class="glass">
-<h3>Neural Core</h3>
-<p>Advanced processing layer simulating intelligent reasoning.</p>
+<div class="card">
+<h3>Neural Engine</h3>
+<p>Adaptive intelligence layer evolving in real-time.</p>
 </div>
 
-<div class="glass">
-<h3>Autonomous Agents</h3>
-<p>Self-learning entities coordinating tasks in real-time.</p>
+<div class="card">
+<h3>Agent Universe</h3>
+<p>Autonomous digital beings coordinating tasks.</p>
 </div>
 
-<div class="glass">
-<h3>Quantum Data</h3>
-<p>High-speed analytics through dimensional computation.</p>
+<div class="card">
+<h3>Quantum Analytics</h3>
+<p>Predictive data streams across dimensions.</p>
 </div>
 
-<div class="glass">
-<h3>AI Communication</h3>
-<p>Human-AI interaction interface with adaptive language.</p>
+<div class="card">
+<h3>AI Interface</h3>
+<p>Seamless human-machine interaction portal.</p>
 </div>
 
 </section>
 
-<div class="footer">
-AI Dimension © 2026
-</div>
+<div class="footer">AI PORTAL X © 2026</div>
+
+<script>
+/* TYPING EFFECT */
+let text="AI PORTAL X";
+let i=0;
+function typing(){
+ if(i<text.length){
+  document.getElementById("typing").innerHTML+=text.charAt(i);
+  i++;
+  setTimeout(typing,100);
+ }
+}
+typing();
+
+/* STAR BACKGROUND */
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let stars=[];
+for(let i=0;i<200;i++){
+ stars.push({
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  r:Math.random()*2
+ });
+}
+
+function draw(){
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+ ctx.fillStyle="white";
+ stars.forEach(s=>{
+  ctx.beginPath();
+  ctx.arc(s.x,s.y,s.r,0,2*Math.PI);
+  ctx.fill();
+  s.y+=0.5;
+  if(s.y>canvas.height)s.y=0;
+ });
+ requestAnimationFrame(draw);
+}
+draw();
+</script>
 
 </body>
 </html>
