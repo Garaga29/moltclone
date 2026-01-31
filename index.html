@@ -2,73 +2,99 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>AI PORTAL X</title>
+<title>AI INFINITY</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body{
-  margin:0;
-  font-family:Segoe UI, sans-serif;
-  color:white;
-  overflow-x:hidden;
-  background:black;
+ margin:0;
+ font-family:Segoe UI,sans-serif;
+ color:white;
+ background:black;
+ overflow-x:hidden;
+}
+canvas{
+ position:fixed;
+ top:0;
+ left:0;
+ z-index:-1;
 }
 
-/* STAR BACKGROUND */
-canvas{
-  position:fixed;
-  top:0;
-  left:0;
-  z-index:-1;
+/* NAVBAR */
+nav{
+ display:flex;
+ justify-content:space-between;
+ padding:20px 40px;
+ background:rgba(0,0,0,0.6);
+ backdrop-filter:blur(10px);
 }
+nav a{color:white;text-decoration:none;margin-left:20px;opacity:.7}
+nav a:hover{opacity:1}
 
 /* HERO */
-.hero{
-  text-align:center;
-  padding:120px 20px 60px;
-}
-
+.hero{text-align:center;padding:120px 20px}
 .hero h1{
-  font-size:56px;
-  background:linear-gradient(90deg,#22d3ee,#a78bfa,#f472b6);
-  -webkit-background-clip:text;
-  color:transparent;
+ font-size:56px;
+ background:linear-gradient(90deg,#22d3ee,#a78bfa,#f472b6);
+ -webkit-background-clip:text;
+ color:transparent;
 }
 
-.hero p{
-  opacity:0.7;
+/* GLASS */
+.glass{
+ background:rgba(255,255,255,0.05);
+ backdrop-filter:blur(15px);
+ border:1px solid rgba(255,255,255,0.15);
+ border-radius:18px;
+ padding:25px;
+ transition:.3s;
+}
+.glass:hover{
+ transform:translateY(-6px);
+ box-shadow:0 0 25px #22d3ee55;
 }
 
 /* GRID */
 .grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:25px;
-  max-width:1100px;
-  margin:auto;
-  padding:40px;
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+ gap:25px;
+ max-width:1100px;
+ margin:auto;
+ padding:40px;
 }
 
-/* GLASS CARD */
-.card{
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(15px);
-  border:1px solid rgba(255,255,255,0.15);
-  border-radius:18px;
-  padding:25px;
-  transition:0.4s;
+/* STATS */
+.stats{
+ display:flex;
+ justify-content:center;
+ gap:40px;
+ padding:40px;
+ text-align:center;
 }
 
-.card:hover{
-  transform:translateY(-8px) scale(1.02);
-  box-shadow:0 0 25px #22d3ee55;
+/* TIMELINE */
+.timeline{
+ max-width:800px;
+ margin:auto;
+ padding:40px;
+}
+
+/* PRICING */
+.pricing{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+ gap:25px;
+ max-width:1000px;
+ margin:auto;
+ padding:40px;
 }
 
 /* FOOTER */
-.footer{
-  text-align:center;
-  padding:50px 0;
-  opacity:0.5;
+footer{
+ text-align:center;
+ opacity:.5;
+ padding:40px;
 }
 </style>
 </head>
@@ -77,74 +103,79 @@ canvas{
 
 <canvas id="stars"></canvas>
 
+<nav>
+<div>AI INFINITY</div>
+<div>
+<a href="#">Features</a>
+<a href="#">Stats</a>
+<a href="#">Pricing</a>
+</div>
+</nav>
+
 <section class="hero">
 <h1 id="typing"></h1>
-<p>Entering neural dimension...</p>
+<p>Next generation intelligence ecosystem.</p>
 </section>
 
 <section class="grid">
-
-<div class="card">
-<h3>Neural Engine</h3>
-<p>Adaptive intelligence layer evolving in real-time.</p>
-</div>
-
-<div class="card">
-<h3>Agent Universe</h3>
-<p>Autonomous digital beings coordinating tasks.</p>
-</div>
-
-<div class="card">
-<h3>Quantum Analytics</h3>
-<p>Predictive data streams across dimensions.</p>
-</div>
-
-<div class="card">
-<h3>AI Interface</h3>
-<p>Seamless human-machine interaction portal.</p>
-</div>
-
+<div class="glass"><h3>Neural Core</h3><p>Adaptive AI reasoning engine.</p></div>
+<div class="glass"><h3>Agents</h3><p>Autonomous digital entities.</p></div>
+<div class="glass"><h3>Quantum Data</h3><p>Predictive analytics layer.</p></div>
+<div class="glass"><h3>AI Chat</h3><p>Human machine interaction.</p></div>
 </section>
 
-<div class="footer">AI PORTAL X © 2026</div>
+<section class="stats">
+<div><h2>10M+</h2><p>Signals</p></div>
+<div><h2>500K</h2><p>Agents</p></div>
+<div><h2>99.9%</h2><p>Accuracy</p></div>
+</section>
+
+<section class="timeline glass">
+<h2>AI Evolution</h2>
+<p>2024 — Neural Systems</p>
+<p>2025 — Autonomous Agents</p>
+<p>2026 — Quantum Intelligence</p>
+</section>
+
+<section class="pricing">
+<div class="glass"><h3>Basic</h3><p>Free Access</p></div>
+<div class="glass"><h3>Pro</h3><p>$29 / month</p></div>
+<div class="glass"><h3>Infinity</h3><p>$99 / month</p></div>
+</section>
+
+<footer>AI INFINITY © 2026</footer>
 
 <script>
-/* TYPING EFFECT */
-let text="AI PORTAL X";
+/* TYPING */
+let t="AI INFINITY";
 let i=0;
-function typing(){
- if(i<text.length){
-  document.getElementById("typing").innerHTML+=text.charAt(i);
+function type(){
+ if(i<t.length){
+  document.getElementById("typing").innerHTML+=t.charAt(i);
   i++;
-  setTimeout(typing,100);
+  setTimeout(type,100);
  }
 }
-typing();
+type();
 
-/* STAR BACKGROUND */
-const canvas=document.getElementById("stars");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
+/* STARS */
+const c=document.getElementById("stars");
+const ctx=c.getContext("2d");
+c.width=window.innerWidth;
+c.height=window.innerHeight;
 let stars=[];
 for(let i=0;i<200;i++){
- stars.push({
-  x:Math.random()*canvas.width,
-  y:Math.random()*canvas.height,
-  r:Math.random()*2
- });
+ stars.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2});
 }
-
 function draw(){
- ctx.clearRect(0,0,canvas.width,canvas.height);
+ ctx.clearRect(0,0,c.width,c.height);
  ctx.fillStyle="white";
  stars.forEach(s=>{
   ctx.beginPath();
   ctx.arc(s.x,s.y,s.r,0,2*Math.PI);
   ctx.fill();
-  s.y+=0.5;
-  if(s.y>canvas.height)s.y=0;
+  s.y+=0.3;
+  if(s.y>c.height)s.y=0;
  });
  requestAnimationFrame(draw);
 }
