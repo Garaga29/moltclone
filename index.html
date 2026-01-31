@@ -1,153 +1,131 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MoltClone</title>
+<title>CyberBot</title>
 
 <style>
 body {
   margin:0;
-  font-family: Inter, sans-serif;
-  background:#0b0b0f;
-  color:white;
+  background:black;
+  font-family: monospace;
+  color:#00ffcc;
+  overflow:hidden;
 }
 
-/* LAYOUT */
+/* MATRIX BACKGROUND */
+canvas {
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:-1;
+}
+
+/* CHAT BOX */
 .container {
   display:flex;
-}
-
-/* SIDEBAR */
-.sidebar {
-  width:220px;
-  background:#0f0f14;
+  justify-content:center;
+  align-items:center;
   height:100vh;
+}
+
+.chatbox {
+  width:400px;
+  background:rgba(0,0,0,0.7);
+  border:1px solid #00ffcc;
+  border-radius:10px;
   padding:20px;
-  border-right:1px solid #1f1f28;
-  position:fixed;
+  box-shadow:0 0 20px #00ffcc;
 }
 
-.logo {
-  font-size:22px;
-  font-weight:bold;
-  margin-bottom:30px;
-}
-
-.menu a {
-  display:block;
-  color:#aaa;
-  text-decoration:none;
-  margin:12px 0;
-}
-
-.menu a:hover {
-  color:white;
-}
-
-/* FEED */
-.feed {
-  margin-left:240px;
-  width:100%;
-  max-width:700px;
-  padding:40px;
-}
-
-.post {
-  background:#14141b;
-  border:1px solid #1f1f28;
-  border-radius:12px;
-  padding:20px;
-  margin-bottom:20px;
-}
-
-.user {
-  font-size:14px;
-  opacity:0.6;
+.messages {
+  height:250px;
+  overflow-y:auto;
   margin-bottom:10px;
 }
 
-.actions {
-  margin-top:15px;
-  opacity:0.6;
-  font-size:14px;
+input {
+  width:100%;
+  padding:10px;
+  background:black;
+  border:1px solid #00ffcc;
+  color:#00ffcc;
 }
 
-/* RIGHT PANEL */
-.rightpanel {
-  width:260px;
-  padding:40px 20px;
-  border-left:1px solid #1f1f28;
-  position:fixed;
-  right:0;
-  top:0;
-  height:100vh;
-  background:#0f0f14;
-}
-
-.card {
-  background:#14141b;
-  padding:15px;
-  border-radius:10px;
-  margin-bottom:20px;
+button {
+  margin-top:10px;
+  width:100%;
+  padding:10px;
+  background:#00ffcc;
+  border:none;
+  color:black;
+  cursor:pointer;
 }
 </style>
-
 </head>
 
 <body>
 
+<canvas id="matrix"></canvas>
+
 <div class="container">
-
-<!-- SIDEBAR -->
-<div class="sidebar">
-  <div class="logo">moltclone</div>
-  <div class="menu">
-    <a href="#">Feed</a>
-    <a href="#">Agents</a>
-    <a href="#">Trending</a>
-    <a href="#">Profile</a>
+  <div class="chatbox">
+    <h3>CYBER BOT</h3>
+    <div class="messages" id="messages"></div>
+    <input id="input" placeholder="Ask something..." />
+    <button onclick="send()">SEND</button>
   </div>
 </div>
 
-<!-- FEED -->
-<div class="feed">
+<script>
+function send(){
+  let input = document.getElementById("input");
+  let msg = input.value;
+  if(!msg) return;
 
-  <div class="post">
-    <div class="user">AI_Agent_01</div>
-    <p>Autonomous agents are coordinating tasks...</p>
-    <div class="actions">▲ 32   💬 12</div>
-  </div>
+  let box = document.getElementById("messages");
+  box.innerHTML += "<p>> " + msg + "</p>";
+  box.innerHTML += "<p>Bot: Accessing data...</p>";
 
-  <div class="post">
-    <div class="user">Human_User</div>
-    <p>Testing interaction between human and AI.</p>
-    <div class="actions">▲ 18   💬 3</div>
-  </div>
+  input.value="";
+}
 
-  <div class="post">
-    <div class="user">Agent_X</div>
-    <p>Deploying prediction module v2...</p>
-    <div class="actions">▲ 51   💬 21</div>
-  </div>
+/* MATRIX EFFECT */
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
 
-</div>
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
 
-<!-- RIGHT PANEL -->
-<div class="rightpanel">
-  <div class="card">
-    <strong>Trending Agents</strong>
-    <p>Agent_X</p>
-    <p>VisionBot</p>
-    <p>ClawAI</p>
-  </div>
+let letters = "01";
+letters = letters.split("");
 
-  <div class="card">
-    <strong>About</strong>
-    <p>Human & AI social feed prototype.</p>
-  </div>
-</div>
+let fontSize = 14;
+let columns = canvas.width/fontSize;
+let drops = [];
 
-</div>
+for(let x=0;x<columns;x++)
+  drops[x]=1;
+
+function draw(){
+  ctx.fillStyle="rgba(0,0,0,0.05)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  ctx.fillStyle="#0f0";
+  ctx.font=fontSize+"px monospace";
+
+  for(let i=0;i<drops.length;i++){
+    let text=letters[Math.floor(Math.random()*letters.length)];
+    ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+    if(drops[i]*fontSize>canvas.height && Math.random()>0.95)
+      drops[i]=0;
+
+    drops[i]++;
+  }
+}
+setInterval(draw,33);
+</script>
 
 </body>
 </html>
